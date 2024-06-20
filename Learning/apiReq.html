@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+   </head>
+   <body>
+      <h1>Hi, this is only for learning, Please check the console to check API request.
+      </h1>
+      <p>
+         These states describe the different stages of communication between a client (like a web browser or a software application) and a server when making an HTTP request and receiving a response. Let's break down each state in a simple and detailed way:
+      <ul>
+         <li>
+            <h2>UNSENT (0):</h2>
+            <p>Description: This is the initial state when a client has been created, but the open() method has not been called yet.
+               Use Case: Typically, when you create a new XMLHttpRequest object (in JavaScript) or set up a request in other programming languages, it starts in this state.
+            </p>
+         </li>
+         <li>
+            <h2>OPENED (1):</h2>
+            <p>Description: The open() method has been called. This method initializes a request, specifying the HTTP method (like GET, POST) and the URL of the server-side resource.
+               Use Case: After calling open(), the request is ready to be sent to the server.
+            </p>
+         </li>
+         <li>
+            <h2>HEADERS_RECEIVED (2):</h2>
+            <p>Description: After calling send() method on the request object, the server has responded with headers and the initial HTTP status code (like 200 for OK, 404 for Not Found).
+               Use Case: In this state, the client receives the metadata about the response, such as content type, server information, and initial status information.
+            </p>
+         </li>
+         <li>
+            <h2>LOADING (3):</h2>
+            <p>Description: The client is in the process of fetching the response body (data) from the server. At this stage, responseText (or similar properties depending on the programming environment) may hold partial data received so far.
+               Use Case: If the response from the server is large, it may take some time to download all the data. During this state, the client is actively downloading and assembling the response.
+            </p>
+         </li>
+         <li>
+            <h2>DONE (4):</h2>
+            <p>Description: The entire operation (request-response cycle) is complete. The client has successfully received the complete response data from the server.
+               Use Case: At this stage, you can access the complete response data through properties like responseText or responseXML (if the response is XML) in JavaScript. This is where you would typically process and use the received data in your application.
+            </p>
+         </li>
+      </ul>
+      Summary:
+      These states help in understanding the lifecycle of an HTTP request and response interaction between a client and a server. They start from initializing the request (UNSENT), progressing through sending and receiving metadata (OPENED, HEADERS_RECEIVED), downloading data (LOADING), and finally completing the operation (DONE). This structured approach ensures that developers can handle and process responses appropriately during different stages of the communication process.
+      </p>
+      <p>
+      <ul>
+         readyState is used to check the state of the request.
+      </ul>
+      </p>
+   </body>
+   <script>
+      const requestURL = 'https://randomuser.me/api/';
+      const xhr = new XMLHttpRequest();
+      console.log("UNSENT", xhr.readyState); // readyState will be 0
+      xhr.open("GET", requestURL)
+      xhr.onreadystatechange = function(){
+              console.log(xhr.readyState);
+              if (xhr.readyState === 4) {
+                  console.log(typeof this.responseText);
+                  const data = JSON.parse(this.responseText)
+                  console.log(typeof data);
+                  console.log(data);
+      
+                  console.log(data.results[0].dob.age);
+                  console.log(data.results[0].phone);
+              }
+          }
+          xhr.res
+      
+      xhr.send(null);
+      
+   </script>
+</html>
